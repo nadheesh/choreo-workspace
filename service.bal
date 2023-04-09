@@ -35,7 +35,7 @@ service / on new http:Listener(9090) {
 
     resource function post guest\-wifi\-accounts(@http:Payload WifiPayload wifiRecord) returns string {
 
-        if (wifiRecord.hasKey(wifiRecord.email)) {
+        if !(wifiRecord.hasKey(wifiRecord.email)) {
             wifiAccounts.add({email: wifiRecord.email, wifiAccounts: [wifiRecord]});
         } else {
             WifiPayloadRecord wifiRecords = wifiAccounts.get(wifiRecord.email);
