@@ -1,0 +1,56 @@
+openapi: 3.0.1
+info:
+  title: /
+  version: 3.1.1
+servers:
+- url: "{server}:{port}/"
+  variables:
+    server:
+      default: http://localhost
+    port:
+      default: "8090"
+paths:
+  /summary/{employeeNo}:
+    get:
+      operationId: getSummaryEmployeeno
+      parameters:
+      - name: employeeNo
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryReport'
+        "500":
+          description: Internal server error
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    SummaryReport:
+      required:
+      - age
+      - firstName
+      - gender
+      - lastName
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gender:
+          type: string
+        age:
+          type: integer
+          format: int64
